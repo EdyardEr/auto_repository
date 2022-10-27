@@ -1,0 +1,23 @@
+git checkout --orphan <branchname> #создание новой, независимой ветки
+git rm --cached -r . #удаление?
+git log --name-only #удаление?
+git log --name-status --graph --oneline
+git restore <SHA>^ -- <file_name> d82a527
+
+
+
+--откат с удалением лишних файлов--
+git add . #сначала добавляем файлы в индекс если надо(например они созданны в ручную)
+git reset --hard head #откатываемся на предидущий коммит
+
+--варианты добавления файла в ветку--
+git checkout 8889abc file1.py
+git commit
+
+
+git checkout --orphan test #новая пустая ветка(файлы не исчезают)
+git checkout -B temporary #новая ветка на основе данной
+
+
+pyuic5 -x untitled.ui -o calc.py
+
