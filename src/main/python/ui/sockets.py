@@ -1,10 +1,9 @@
 from .extension import Window
-
-def test_controller_func():
-    print('click')
-
+from core import controller
 
 class SocketsMixin:
+    __slots__ = ()
+
     def __init__(self, *args, **kwargs):
         # print('socket')
         super().__init__(*args, **kwargs)
@@ -14,6 +13,8 @@ class SocketsMixin:
         """
         here we link widgets and controller func
         """
-        self.create_rep.clicked.connect(test_controller_func)
+        self.create_rep.clicked.connect(controller.test_controller_func)
+        self.del_rep.clicked.connect(controller.test_controller_func)
+        self.track.clicked.connect(controller.test_controller_func)
 
 

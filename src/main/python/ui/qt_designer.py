@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'qt_designer_files/main_win.ui'
+# Form implementation generated from reading ui file 'C:\Users\ederm\Desktop\my_projects\repository\qt_designer_files\main_win.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -13,7 +13,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
-        # print('designer')
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(502, 217)
         MainWindow.setToolTipDuration(-1)
@@ -94,9 +93,9 @@ class Ui_MainWindow(object):
         self.pushButton_4.setText("")
         self.pushButton_4.setObjectName("pushButton_4")
         self.track_row.addWidget(self.pushButton_4)
-        self.pushButton_3 = QtWidgets.QPushButton(self.Tracker_tab)
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.track_row.addWidget(self.pushButton_3)
+        self.track = QtWidgets.QPushButton(self.Tracker_tab)
+        self.track.setObjectName("track")
+        self.track_row.addWidget(self.track)
         self.verticalLayout_2.addLayout(self.track_row)
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_3.setSpacing(0)
@@ -126,7 +125,7 @@ class Ui_MainWindow(object):
         self.del_rep.setText(_translate("MainWindow", "Delete"))
         self.label.setText(_translate("MainWindow", "Location:"))
         self.label_3.setText(_translate("MainWindow", "C:UsersedermDesktopmy_projectsrepository"))
-        self.pushButton_3.setText(_translate("MainWindow", "Track"))
+        self.track.setText(_translate("MainWindow", "Track"))
         self.MainTab.setTabText(self.MainTab.indexOf(self.Tracker_tab), _translate("MainWindow", "Tracker"))
         self.MainTab.setTabText(self.MainTab.indexOf(self.Roollback_tab), _translate("MainWindow", "Roollback"))
 
