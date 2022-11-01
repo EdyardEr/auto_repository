@@ -13,6 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+        # print('designer')
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(502, 217)
         MainWindow.setToolTipDuration(-1)
