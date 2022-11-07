@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>502</width>
-    <height>217</height>
+    <height>299</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -59,7 +59,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="comboBox">
+           <widget class="QComboBox" name="rep_list">
             <property name="sizePolicy">
              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -72,16 +72,6 @@
               <height>0</height>
              </size>
             </property>
-            <item>
-             <property name="text">
-              <string>Programs</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Drawings</string>
-             </property>
-            </item>
            </widget>
           </item>
           <item>

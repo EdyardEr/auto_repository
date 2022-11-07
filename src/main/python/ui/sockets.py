@@ -1,5 +1,6 @@
 from .extension import Window
-from core import controller
+from controller import Controller
+
 
 class SocketsMixin:
     __slots__ = ()
@@ -13,8 +14,8 @@ class SocketsMixin:
         """
         here we link widgets and controller func
         """
-        self.create_rep.clicked.connect(controller.test_controller_func)
-        self.del_rep.clicked.connect(controller.test_controller_func)
-        self.track.clicked.connect(controller.test_controller_func)
+        self.create_rep.clicked.connect(Controller.create_new_repository())
+        self.del_rep.clicked.connect(Controller.test_controller_func)
+        self.track.clicked.connect(Controller.test_controller_func)
 
 

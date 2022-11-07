@@ -8,6 +8,8 @@ update()
 
 from fbs_runtime.application_context.PyQt5 import ApplicationContext
 from ui.app import Application
+from database.db import AppData
+from controller import Controller
 import sys
 
 
@@ -17,6 +19,8 @@ sys.path.append('src/main/python')
 if __name__ == '__main__':
     appctxt = ApplicationContext()       # 1. Instantiate ApplicationContext
 
+    # app_data = AppData()        # cercl link
+    # controller = Controller()
     app = Application()
     # app.resize(250, 150)
     app.show()
