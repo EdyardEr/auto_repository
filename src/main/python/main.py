@@ -1,20 +1,14 @@
-"""
-it's utility update qt file, delete its after develop
-"""
-
-from update_qt_designer import update_qt_file as update
-update()
-"""
-"""
 import sys
 from fbs_runtime.application_context.PyQt5 import ApplicationContext
 
 from app import Application
-
+from qt_designer_files.window_update import update_qt_file  # temporary develop func
 
 sys.path.append('src/main/python')
 
 if __name__ == '__main__':
+    update_qt_file()  # temporary develop func
+
     appctxt = ApplicationContext()  # 1. Instantiate ApplicationContext
 
     app = Application()

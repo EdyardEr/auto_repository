@@ -1,6 +1,4 @@
-"""
-it's temporary file, delete its after develop
-"""
+from typing import List, Union
 import subprocess
 
 
@@ -10,10 +8,9 @@ class Console:
         self._input = None
         self._error = None
 
-    def execute(self, command: str):
+    def execute(self, command: Union[List[str], str]):
         pipe = subprocess.PIPE
         self.save_state(command, subprocess.Popen(command, stdout=pipe, stderr=pipe, encoding='utf-8'))
-        # if not self._error:
         return [line.strip() for line in self._output]
 
     def save_state(self, command, answer):
@@ -32,8 +29,11 @@ class Console:
 
 
 def update_qt_file():
-    source_path = r'C:\Users\ederm\Desktop\my_projects\repository\qt_designer_files\main_win.ui'
-    qt_designer_path = r'C:\Users\ederm\Desktop\my_projects\repository\src\main\python\ui\qt_designer.py'
+    """
+    it's utility update source_window.py from qt designer file
+    """
+    source_path = r'/qt_designer_files/main_win.ui'
+    qt_designer_path = r'/ui/source_window.py'
     command = ['pyuic5', '-x', source_path, '-o', qt_designer_path]
     console = Console()
     console.execute(command)

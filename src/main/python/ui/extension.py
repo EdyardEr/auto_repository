@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QListWidgetItem, QMainWindow, QFileDialog, QMessageB
 from PyQt5.QtCore import QCoreApplication, QUrl
 
 from event import Event
-from .qt_designer import Ui_MainWindow
+from .source_window import Ui_MainWindow
 
 class Window(Ui_MainWindow):
     def __init__(self, *args, **kwargs):

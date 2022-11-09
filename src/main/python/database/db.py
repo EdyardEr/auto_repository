@@ -4,7 +4,6 @@ import json
 data_structure = {
     'rep_dirs': {'name': 'path', 'two': 8795689},  # name: str, path: str
 }
-
 path = r'database/json_data.json'
 
 class AppData(dict):
@@ -25,7 +24,7 @@ class AppData(dict):
         with open(path, 'w') as write_file:
             json.dump(app_data, write_file, indent=4)
 
-    def recovery(self):
+    def _recovery(self):
         with open(path, 'w') as write_file:
             json.dump(data_structure, write_file)
 
@@ -33,7 +32,7 @@ class AppData(dict):
 if __name__ == '__main__':
     path = r'json_data.json'
     data = AppData()
-    data.recovery()
+    data._recovery()
     print(data._get_from_json())
 
 
