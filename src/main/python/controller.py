@@ -20,7 +20,15 @@ class Controller:
 
     def create_new_repository(self, *args, **kwargs):
         # print(args, kwargs)
-        path, name = self.ui.window.register_new_repository()
-        self.database['rep_dirs'][name] = path
-        self.ui.filling.fill_rep_list(self.get_repository_dirs().keys())
-        print('create_new_repository')
+        path = self.ui.window.request_dir_path()
+        name = self.ui.window.request_repository_name()
+        print(name)
+        if type(name) == Exception:
+            print('exception')
+            self.valid_error(name)
+        else:
+            self.database['rep_dirs'][name] = path
+            self.ui.filling.fill_rep_list(self.get_repository_dirs().keys())
+
+    def valid_error(self, exception):
+        self.ui.window.show_validator_except_mess(str(exception))
