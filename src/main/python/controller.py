@@ -1,16 +1,26 @@
+from ui.ui import Ui
 from database.db import AppData
-from ui.extension import
-app_data = AppData()
 
 class Controller:
-    @classmethod
-    def test_controller_func(cls):
-        print('click')
+    def __init__(self, ui: Ui, database: AppData):
+        self.ui = ui
+        self.database = database
+        self.create_ui_links()
+        self.fill_ui()
 
-    @classmethod
-    def get_repository_dirs(cls) -> dict:
-        return app_data['rep_dirs']
+    def create_ui_links(self):
+        self.ui.sockets.create_rep_button.add(self.create_new_repository)
 
-    @classmethod
-    def create_new_repository(cls):
-        pass
+    def fill_ui(self):
+        self.ui.filling.fill_rep_list(self.get_repository_dirs().keys())
+        self.ui.filling.fill_rep_path(self.get_repository_dirs()[self.ui.window.rep_list.currentText()])
+
+    def get_repository_dirs(self) -> dict:
+        return self.database['rep_dirs']
+
+    def create_new_repository(self, *args, **kwargs):
+        # print(args, kwargs)
+        path, name = self.ui.window.register_new_repository()
+        self.database['rep_dirs'][name] = path
+        self.ui.filling.fill_rep_list(self.get_repository_dirs().keys())
+        print('create_new_repository')

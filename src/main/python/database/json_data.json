@@ -1,1 +1,7 @@
-{"rep_dirs": {"name": "path", "two": 8795689}}
+{
+    "rep_dirs": {
+        "name": "path",
+        "two": 8795689
+    },
+    "three": "path_three"
+}

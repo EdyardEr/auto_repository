@@ -124,7 +124,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_3">
+           <widget class="QLabel" name="repository_path">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -132,7 +132,7 @@
              </sizepolicy>
             </property>
             <property name="text">
-             <string>C:UsersedermDesktopmy_projectsrepository</string>
+             <string>C:UsersedermDesktopmy</string>
             </property>
            </widget>
           </item>
