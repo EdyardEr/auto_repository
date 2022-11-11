@@ -10,25 +10,34 @@ class Controller:
 
     def create_ui_links(self):
         self.ui.sockets.create_rep_button.add(self.create_new_repository)
+        self.ui.sockets.change_rep_combo_box.add(self.change_rep_path)
 
     def fill_ui(self):
-        self.ui.filling.fill_rep_list(self.get_repository_dirs().keys())
-        self.ui.filling.fill_rep_path(self.get_repository_dirs()[self.ui.window.rep_list.currentText()])
+        self.ui.filling.fill_rep_list(self.database.get_rep_names())
 
-    def get_repository_dirs(self) -> dict:
-        return self.database['rep_dirs']
+    def change_rep_path(self, line_ind):
+        self.database.set_current_rep_index(line_ind)
+        self.ui.filling.fill_rep_path(self.database.get_current_rep_path())
 
-    def create_new_repository(self, *args, **kwargs):
-        # print(args, kwargs)
-        path = self.ui.window.request_dir_path()
-        name = self.ui.window.request_repository_name()
-        print(name)
-        if type(name) == Exception:
-            print('exception')
-            self.valid_error(name)
+    def create_new_repository(self, *button_state):
+        new_path = self.ui.window.request_dir_path()
+        if self.is_path_exist(new_path):
+            self.valid_error('Repository in this directory already exist!')
+            return
+        if not new_path:
+            return
+        new_name, is_actual = self.ui.window.request_repository_name()
+        if not is_actual:
+            return
+        if type(new_name) == Exception:
+            self.valid_error(new_name)
         else:
-            self.database['rep_dirs'][name] = path
-            self.ui.filling.fill_rep_list(self.get_repository_dirs().keys())
+            self.database.set_new_rep(new_name, new_path)
+            self.ui.filling.fill_rep_list(self.database.get_rep_names())
+
+    def is_path_exist(self, path) -> bool:
+        paths: list = self.database.get_rep_paths()
+        return True if path in paths else False
 
     def valid_error(self, exception):
         self.ui.window.show_validator_except_mess(str(exception))

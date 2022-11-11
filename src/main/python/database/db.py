@@ -1,38 +1,48 @@
-import json
+from typing import List, Tuple
 
+from database.json_data import JsonData
 
-data_structure = {
-    'rep_dirs': {'name': 'path', 'two': 8795689},  # name: str, path: str
+main_data_structure = {
+    'rep_dirs': [('one', 'path_one'), ('two', 'path_two'), ('three', 'path_three')],
+    'current_rep_index': 0,
 }
-path = r'database/json_data.json'
+main_db_path = r'C:\Users\ederm\Desktop\my_projects\repository\src\main\python\database\json_data.json'
 
-class AppData(dict):
-    __slots__ = ()
+class AppData:
+    __slots__ = ('json_data',)
 
     def __init__(self):
-        super().__init__(self._get_from_json())
+        self.json_data = JsonData(main_db_path)
 
-    def __setitem__(self, key, value):
-        super().__setitem__(key, value)  # update dict
-        self._set_to_json(self)          # save to json
+    def get_rep_names(self) -> List[str]:
+        return [name for name, rep_path in self.get_repositories()]
 
-    def _get_from_json(self):
-        with open(path, 'r') as read_file:
-            return json.load(read_file)
+    def get_rep_paths(self) -> List[str]:
+        return [rep_path for name, rep_path in self.get_repositories()]
 
-    def _set_to_json(self, app_data):
-        with open(path, 'w') as write_file:
-            json.dump(app_data, write_file, indent=4)
+    def get_repositories(self) -> List[tuple]:
+        return self.json_data['rep_dirs']
 
-    def _recovery(self):
-        with open(path, 'w') as write_file:
-            json.dump(data_structure, write_file)
+    def get_current_rep(self) -> Tuple[str, str]:
+        return self.json_data['rep_dirs'][self.json_data['current_rep_index']]
+
+    def get_current_rep_name(self) -> str:
+        return self.get_current_rep()[0]
+
+    def get_current_rep_path(self) -> str:
+        return self.get_current_rep()[1]
+
+    def set_current_rep_index(self, ind: int):
+        self.json_data['current_rep_index'] = ind
+
+    def set_new_rep(self, name, rep_path):
+        self.json_data['rep_dirs'].append((name, rep_path))
 
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # recover json data base
     path = r'json_data.json'
     data = AppData()
-    data._recovery()
-    print(data._get_from_json())
+    data.json_data._restructure(main_data_structure)
+    print(data.json_data._get_from_json())
 
 

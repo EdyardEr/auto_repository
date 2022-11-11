@@ -4,7 +4,7 @@ from typing import Tuple
 from PyQt5.QtWidgets import QListWidgetItem, QMainWindow, QFileDialog, QMessageBox, QInputDialog
 from PyQt5.QtCore import QCoreApplication, QUrl
 
-from event import Event
+from delegate import Delegate
 from .source_window import Ui_MainWindow
 from ui.validators import validator
 
@@ -33,10 +33,10 @@ class Window(Ui_MainWindow):
         return path
 
     @validator.new_rep_name
-    def request_repository_name(self) -> str:
-        name, is_act = QInputDialog.getText(self._base_window, 'Naming', 'Enter a name for the repository:')
-        return name
+    def request_repository_name(self) -> Tuple[str, bool]:
+        name, is_actual = QInputDialog.getText(self._base_window, 'Naming', 'Enter a name for the repository:')
+        return name, is_actual
 
-    def show_validator_except_mess(self, message):  # test with mess widgets
+    def show_validator_except_mess(self, message):
         QMessageBox.warning(self._base_window, 'Validator except', message)
 

@@ -1,7 +1,25 @@
 {
-    "rep_dirs": {
-        "name": "path",
-        "two": 8795689
-    },
-    "three": "path_three"
+    "rep_dirs": [
+        [
+            "one",
+            "path_one"
+        ],
+        [
+            "two",
+            "path_two"
+        ],
+        [
+            "three",
+            "path_three"
+        ],
+        [
+            "four",
+            "C:/Users/ederm/New Unity Project"
+        ],
+        [
+            "five",
+            "C:/Users/ederm/Pictures"
+        ]
+    ],
+    "current_rep_index": 2
 }

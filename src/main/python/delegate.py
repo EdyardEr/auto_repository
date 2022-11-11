@@ -1,4 +1,4 @@
-class Event(set):
+class Delegate(set):
     __slots__ = ()
 
     def __call__(self, *args, **kwargs):
