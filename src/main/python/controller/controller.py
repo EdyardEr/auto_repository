@@ -1,3 +1,4 @@
+from .verifier import Verifier
 from ui.ui import Ui
 from database.db import AppData
 
@@ -5,6 +6,9 @@ class Controller:
     def __init__(self, ui: Ui, database: AppData):
         self.ui = ui
         self.database = database
+
+        self.verifier = Verifier(self.ui, self.database)
+
         self.create_ui_links()
         self.fill_ui()
 
@@ -25,7 +29,7 @@ class Controller:
 
     def create_new_repository(self, *button_state):
         new_path = self.ui.window.request_dir_path()
-        if self.is_path_exist(new_path):
+        if self.verifier.is_path_exist(new_path):
             self.valid_error('Repository in this directory already exist!')
             return
         if not new_path:
@@ -39,10 +43,6 @@ class Controller:
             self.database.set_new_rep(new_name, new_path)
             ind = self.database.get_reps_count()
             self.ui.filling.fill_rep_list(self.database.get_rep_names(), ind)
-
-    def is_path_exist(self, path) -> bool:
-        paths: list = self.database.get_rep_paths()
-        return True if path in paths else False
 
     def valid_error(self, exception):
         self.ui.window.show_validator_except_mess(str(exception))

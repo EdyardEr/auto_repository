@@ -1,5 +1,5 @@
 from database.db import AppData
-from controller import Controller
+from controller.controller import Controller
 from ui.ui import Ui
 
 class Application:
