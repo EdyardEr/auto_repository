@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Tuple, Dict
 
 from database.json_data import JsonData
 
@@ -43,6 +43,11 @@ class AppData:
 
     def get_reps_count(self) -> int:
         return len(self.json_data['rep_dirs'])
+
+    def del_rep(self, name):
+        for ind, rep in enumerate(self.json_data['rep_dirs']):
+            if name == rep[0]:
+                self.json_data['rep_dirs'].pop(ind)
 
 
 if __name__ == '__main__':  # recover json data base

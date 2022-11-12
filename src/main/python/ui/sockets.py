@@ -1,4 +1,4 @@
-from .extension import Window
+from .window import Window
 from ui.delegate import Delegate
 
 class Sockets:
@@ -8,6 +8,9 @@ class Sockets:
         """
         self.create_rep_button = Delegate()
         window.create_rep.clicked.connect(self.create_rep_button)
+
+        self.del_rep_button = Delegate()
+        window.del_rep.clicked.connect(self.del_rep_button)
 
         self.change_rep_combo_box = Delegate()
         window.rep_list.currentIndexChanged.connect(self.change_rep_combo_box)

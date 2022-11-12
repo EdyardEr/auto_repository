@@ -1,4 +1,4 @@
-from .extension import Window
+from .window import Window
 from .filling import Filling
 from .sockets import Sockets
 # from .validator import Validator

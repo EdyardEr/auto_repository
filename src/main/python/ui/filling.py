@@ -1,6 +1,6 @@
 from typing import Optional
 
-from .extension import Window
+from .window import Window
 
 class Filling:
     def __init__(self, window: Window):
@@ -14,4 +14,4 @@ class Filling:
         self.window.rep_list.addItems(rep_list)
         if ind is not None:
             self.window.rep_list.setCurrentIndex(ind)
-            # print(ind, self.window.rep_list.currentIndex())
+

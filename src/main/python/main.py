@@ -13,6 +13,5 @@ if __name__ == '__main__':
 
     app = Application()
     app.start()
-
     exit_code = appctxt.app.exec_()  # 2. Invoke appctxt.app.exec_()
     sys.exit(exit_code)
