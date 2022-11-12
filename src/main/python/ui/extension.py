@@ -1,10 +1,8 @@
 import pathlib
 from typing import Tuple
 
-from PyQt5.QtWidgets import QListWidgetItem, QMainWindow, QFileDialog, QMessageBox, QInputDialog
-from PyQt5.QtCore import QCoreApplication, QUrl
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QInputDialog
 
-from delegate import Delegate
 from .source_window import Ui_MainWindow
 from ui.validators import validator
 
