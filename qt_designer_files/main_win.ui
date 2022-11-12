@@ -156,9 +156,9 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="track">
+           <widget class="QPushButton" name="track_dir">
             <property name="text">
-             <string>Track</string>
+             <string>Track!!!!</string>
             </property>
            </widget>
           </item>

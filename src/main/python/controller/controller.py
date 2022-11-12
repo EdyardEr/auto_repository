@@ -1,3 +1,4 @@
+from .core import Core
 from .user import User
 from .verifier import Verifier
 from ui.ui import Ui
@@ -7,6 +8,7 @@ class Controller:
     def __init__(self, ui: Ui, database: AppData):
         self.ui = ui
         self.database = database
+        self.core = Core()
 
         self.verifier = Verifier(self.ui, self.database)
         self.user = User(self.ui, self.database, self.verifier)
@@ -18,6 +20,10 @@ class Controller:
         self.ui.sockets.create_rep_button.add(self.create_new_repository)
         self.ui.sockets.del_rep_button.add(self.del_repository)
         self.ui.sockets.change_rep_combo_box.add(self.change_rep_path)
+        self.ui.sockets.track_dir.add(self.track_rep)
+
+    def track_rep(self, button_state):
+        print(button_state)
 
     def fill_ui(self):
         """

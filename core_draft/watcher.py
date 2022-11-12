@@ -9,7 +9,7 @@ class Handler(RegexMatchingEventHandler):
 
 
 if __name__ == '__main__':
-    path = r'C:\Users\ederm\Desktop\my_projects\repository\watch_dir'
+    path = r'C:\Users\ederm\Desktop'
     observer = Observer()
     handler = Handler(ignore_directories=True, case_sensitive=True, ignore_regexes=[r'.*.git.*'])
     observer.schedule(handler, path=path, recursive=True)

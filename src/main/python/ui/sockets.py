@@ -12,8 +12,12 @@ class Sockets:
         self.del_rep_button = Delegate()
         window.del_rep.clicked.connect(self.del_rep_button)
 
+        self.track_dir = Delegate()
+        window.track_dir.clicked.connect(self.track_dir)
+
         self.change_rep_combo_box = Delegate()
         window.rep_list.currentIndexChanged.connect(self.change_rep_combo_box)
+
 
 
 
