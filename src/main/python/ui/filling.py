@@ -14,4 +14,4 @@ class Filling:
         self.window.rep_list.addItems(rep_list)
         if ind is not None:
             self.window.rep_list.setCurrentIndex(ind)
-            print(ind, self.window.rep_list.currentIndex())
+            # print(ind, self.window.rep_list.currentIndex())
