@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .extension import Window
 
 class Filling:
@@ -7,6 +9,9 @@ class Filling:
     def fill_rep_path(self, text: str):
         self.window.repository_path.setText(text)
 
-    def fill_rep_list(self, rep_list: list):
+    def fill_rep_list(self, rep_list: list, ind: Optional[int] = None):
         self.window.rep_list.clear()
         self.window.rep_list.addItems(rep_list)
+        if ind is not None:
+            self.window.rep_list.setCurrentIndex(ind)
+            print(ind, self.window.rep_list.currentIndex())

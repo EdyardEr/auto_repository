@@ -35,14 +35,22 @@ class AppData:
     def set_current_rep_index(self, ind: int):
         self.json_data['current_rep_index'] = ind
 
+    def get_current_rep_index(self) -> int:
+        return self.json_data['current_rep_index']
+
     def set_new_rep(self, name, rep_path):
         self.json_data['rep_dirs'].append((name, rep_path))
+
+    def get_reps_count(self) -> int:
+        return len(self.json_data['rep_dirs'])
 
 
 if __name__ == '__main__':  # recover json data base
     path = r'json_data.json'
     data = AppData()
-    data.json_data._restructure(main_data_structure)
-    print(data.json_data._get_from_json())
+    answer = input('restructure Y/N? : ')
+    if answer.strip() == 'Y':
+        data.json_data._restructure(main_data_structure)
+        print(data.json_data._get_from_json())
 
 

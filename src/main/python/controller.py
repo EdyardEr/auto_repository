@@ -13,7 +13,11 @@ class Controller:
         self.ui.sockets.change_rep_combo_box.add(self.change_rep_path)
 
     def fill_ui(self):
-        self.ui.filling.fill_rep_list(self.database.get_rep_names())
+        """
+        Here we filling ui widgets while starting.
+        """
+        ind = self.database.get_current_rep_index()
+        self.ui.filling.fill_rep_list(self.database.get_rep_names(), ind)
 
     def change_rep_path(self, line_ind):
         self.database.set_current_rep_index(line_ind)
@@ -33,7 +37,8 @@ class Controller:
             self.valid_error(new_name)
         else:
             self.database.set_new_rep(new_name, new_path)
-            self.ui.filling.fill_rep_list(self.database.get_rep_names())
+            ind = self.database.get_reps_count()
+            self.ui.filling.fill_rep_list(self.database.get_rep_names(), ind)
 
     def is_path_exist(self, path) -> bool:
         paths: list = self.database.get_rep_paths()
