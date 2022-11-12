@@ -1,5 +1,5 @@
 from .extension import Window
-from delegate import Delegate
+from ui.delegate import Delegate
 
 class Sockets:
     def __init__(self, window: Window):
