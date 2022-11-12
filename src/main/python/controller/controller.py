@@ -1,3 +1,4 @@
+from .user import User
 from .verifier import Verifier
 from ui.ui import Ui
 from database.db import AppData
@@ -8,6 +9,7 @@ class Controller:
         self.database = database
 
         self.verifier = Verifier(self.ui, self.database)
+        self.user = User(self.ui, self.verifier)
 
         self.create_ui_links()
         self.fill_ui()
@@ -28,21 +30,16 @@ class Controller:
         self.ui.filling.fill_rep_path(self.database.get_current_rep_path())
 
     def create_new_repository(self, *button_state):
-        new_path = self.ui.window.request_dir_path()
-        if self.verifier.is_path_exist(new_path):
-            self.valid_error('Repository in this directory already exist!')
+        new_path = self.user.choose_rep_path()
+        if new_path is None:
             return
-        if not new_path:
+        new_name = self.user.write_rep_name()
+        if new_name is None:
             return
-        new_name, is_actual = self.ui.window.request_repository_name()
-        if not is_actual:
-            return
-        if type(new_name) == Exception:
-            self.valid_error(new_name)
-        else:
-            self.database.set_new_rep(new_name, new_path)
-            ind = self.database.get_reps_count()
-            self.ui.filling.fill_rep_list(self.database.get_rep_names(), ind)
+        self.save_and_actual_rep(new_name, new_path)
 
-    def valid_error(self, exception):
-        self.ui.window.show_validator_except_mess(str(exception))
+    def save_and_actual_rep(self, new_name, new_path):
+        self.database.set_new_rep(new_name, new_path)
+        ind = self.database.get_reps_count()
+        self.ui.filling.fill_rep_list(self.database.get_rep_names(), ind)
+
