@@ -58,7 +58,7 @@ class Controller:
 
     def save_and_actual_rep(self, new_name, new_path):
         self.database.set_new_rep(new_name, new_path)
-        ind = self.database.get_reps_count()
+        ind = self.database.get_reps_count() - 1
         self.ui.filling.fill_rep_list(self.database.get_rep_names(), ind)
 
     def fill_rep_list(self):
