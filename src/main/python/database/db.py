@@ -3,7 +3,7 @@ from typing import List, Tuple, Dict
 from database.json_data import JsonData
 
 main_data_structure = {
-    'rep_dirs': [('one', 'path_one'), ('two', 'path_two'), ('three', 'path_three')],
+    'rep_dirs': [('one', 'path_one', False), ('two', 'path_two', False), ('three', 'path_three', False)],
     'current_rep_index': 0,
 }
 main_db_path = r'C:\Users\ederm\Desktop\my_projects\repository\src\main\python\database\json_data.json'
@@ -20,7 +20,7 @@ class AppData:
     def get_rep_paths(self) -> List[str]:
         return [rep_path for name, rep_path in self.get_repositories()]
 
-    def get_repositories(self) -> List[tuple]:
+    def get_repositories(self) -> List[Tuple[str, str, bool]]:
         return self.json_data['rep_dirs']
 
     def get_current_rep(self) -> Tuple[str, str]:
@@ -39,7 +39,7 @@ class AppData:
         return self.json_data['current_rep_index']
 
     def set_new_rep(self, name, rep_path):
-        self.json_data['rep_dirs'].append((name, rep_path))
+        self.json_data['rep_dirs'].append((name, rep_path, 0))
 
     def get_reps_count(self) -> int:
         return len(self.json_data['rep_dirs'])

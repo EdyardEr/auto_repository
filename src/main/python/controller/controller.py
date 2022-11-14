@@ -8,11 +8,13 @@ class Controller:
     def __init__(self, ui: Ui, database: AppData):
         self.ui = ui
         self.database = database
-        self.core = Core()
 
         self.verifier = Verifier(self.ui, self.database)
         self.user = User(self.ui, self.database, self.verifier)
+        self.core = Core(self.database, self.ui)
+        self.start_application()
 
+    def start_application(self):
         self.create_ui_links()
         self.fill_ui()
 

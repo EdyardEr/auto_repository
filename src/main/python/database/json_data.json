@@ -1,17 +1,1 @@
-{
-    "rep_dirs": [
-        [
-            "one",
-            "path_one"
-        ],
-        [
-            "two",
-            "path_two"
-        ],
-        [
-            "three",
-            "path_three"
-        ]
-    ],
-    "current_rep_index": -1
-}
+{"rep_dirs": [["one", "path_one", false], ["two", "path_two", false], ["three", "path_three", false]], "current_rep_index": 0}
