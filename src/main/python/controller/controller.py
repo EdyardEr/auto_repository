@@ -21,11 +21,25 @@ class Controller:
     def create_ui_links(self):
         self.ui.sockets.create_rep_button.add(self.create_new_repository)
         self.ui.sockets.del_rep_button.add(self.del_repository)
-        self.ui.sockets.change_rep_combo_box.add(self.change_rep_path)
+        self.ui.sockets.change_rep_combo_box.add(self.change_rep)
         self.ui.sockets.track_dir.add(self.track_rep)
 
+    def watchers_connect(self):
+        self.core.watchers_connect(self.fake_func)
+
+    def fake_func(self, event):
+        print(event)
+
     def track_rep(self, button_state):
-        print(button_state)
+        current_name = self.database.get_current_rep_name()
+        if self.database.get_current_rep_state():
+            # self.core.turn_off_watcher(current_name)
+            self.database.set_rep_track_state(current_name, False)
+            self.ui.filling.track_indicate_light(False)
+        else:
+            # self.core.turn_on_watcher(current_name)
+            self.database.set_rep_track_state(current_name, True)
+            self.ui.filling.track_indicate_light(True)
 
     def fill_ui(self):
         """
@@ -33,13 +47,16 @@ class Controller:
         """
         self.fill_rep_list()
 
-    def change_rep_path(self, line_ind):
+    def change_rep(self, line_ind):
         self.database.set_current_rep_index(line_ind)
         if line_ind != -1:
             text = self.database.get_current_rep_path()
+            track_state = self.database.get_current_rep_state()
         else:
             text = ''
+            track_state = False
         self.ui.filling.fill_rep_path(text)
+        self.ui.filling.track_indicate_light(track_state)
 
     def create_new_repository(self, *button_state):
         new_path = self.user.choose_rep_path()
@@ -59,11 +76,11 @@ class Controller:
         self.fill_rep_list()
 
     def save_and_actual_rep(self, new_name, new_path):
-        self.database.set_new_rep(new_name, new_path)
+        self.database.set_new_rep(new_name, new_path, False)
         ind = self.database.get_reps_count() - 1
-        self.ui.filling.fill_rep_list(self.database.get_rep_names(), ind)
+        self.ui.filling.fill_tracker_tab(self.database.get_rep_names(), ind, False)
 
     def fill_rep_list(self):
         ind = self.database.get_current_rep_index()
-        self.ui.filling.fill_rep_list(self.database.get_rep_names(), ind)
+        self.ui.filling.fill_tracker_tab(self.database.get_rep_names(), ind, self.database.get_current_rep_state())
 

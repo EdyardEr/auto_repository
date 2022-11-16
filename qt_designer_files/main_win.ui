@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>502</width>
-    <height>299</height>
+    <width>529</width>
+    <height>339</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -137,7 +137,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_4">
+           <widget class="QPushButton" name="track_indicator">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -146,8 +146,8 @@
             </property>
             <property name="maximumSize">
              <size>
-              <width>10</width>
-              <height>16777215</height>
+              <width>20</width>
+              <height>20</height>
              </size>
             </property>
             <property name="text">
@@ -158,7 +158,7 @@
           <item>
            <widget class="QPushButton" name="track_dir">
             <property name="text">
-             <string>Track!!!!</string>
+             <string>Track</string>
             </property>
            </widget>
           </item>
