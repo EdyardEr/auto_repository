@@ -3,12 +3,12 @@
         [
             "one",
             "fake_path",
-            true
+            false
         ],
         [
             "two",
             "fake_path",
-            false
+            true
         ],
         [
             "three",

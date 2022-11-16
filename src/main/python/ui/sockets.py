@@ -1,7 +1,5 @@
-from typing import Dict
-
 from .window import Window
-from .delegate import Delegate
+from delegate import Delegate
 
 class Sockets:
     def __init__(self, window: Window):

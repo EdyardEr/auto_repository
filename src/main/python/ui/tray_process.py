@@ -2,12 +2,12 @@ from typing import Dict
 
 from PyQt5.QtWidgets import QSystemTrayIcon, QStyle, QMenu, QAction, qApp, QMainWindow
 
-from .delegate import Delegate
+from delegate import Delegate
 
 class TrayProcess:
     def __init__(self, window: QMainWindow):
         self.window = window
-        self.sockets: Dict[str, Delegate] = {'show_action': Delegate()}
+        self.sockets: Dict[str, Delegate] = {}
         self._define_icon()
         self._create_menu()
 
