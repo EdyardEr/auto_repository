@@ -8,13 +8,18 @@
         [
             "two",
             "fake_path",
-            true
+            false
         ],
         [
             "three",
             "fake_path",
             false
+        ],
+        [
+            "four",
+            "C:/Users/ederm/Desktop/lol",
+            true
         ]
     ],
-    "current_rep_index": 0
+    "current_rep_index": 3
 }

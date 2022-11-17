@@ -46,14 +46,15 @@ class AppData:
     def set_rep_track_state(self, name: str, state: bool):
         for ind, rep in enumerate(self.json_data['rep_dirs']):
             if name == rep[0]:
-                self.json_data['rep_dirs'][ind] = name, 'fake_path', state
+                print(self.json_data['rep_dirs'][ind])
+                self.json_data['rep_dirs'][ind][2] = state
                 self.json_data['rep_dirs'] = self.json_data['rep_dirs']
 
     def get_current_rep_index(self) -> int:
         return self.json_data['current_rep_index']
 
     def set_new_rep(self, name: str, rep_path: str, track: bool):
-        self.json_data['rep_dirs'].append((name, rep_path, track))
+        self.json_data['rep_dirs'].append([name, rep_path, track])
 
     def get_reps_count(self) -> int:
         return len(self.json_data['rep_dirs'])

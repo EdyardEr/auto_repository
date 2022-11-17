@@ -1,4 +1,4 @@
-from .core import Core
+from .watcher_manager import WatcherManager
 from .user import User
 from .verifier import Verifier
 from ui.ui import Ui
@@ -11,7 +11,7 @@ class Controller:
 
         self.verifier = Verifier(self.ui, self.database)
         self.user = User(self.ui, self.database, self.verifier)
-        self.core = Core(self.database, self.ui)
+        self.core = WatcherManager(self.database, self.ui)
         self.start_application()
 
     def start_application(self):
@@ -24,13 +24,7 @@ class Controller:
         self.ui.sockets.change_rep_combo_box.add(self.change_rep)
         self.ui.sockets.track_dir.add(self.track_rep)
 
-    def watchers_connect(self):
-        self.core.watchers_connect(self.fake_func)
-
-    def fake_func(self, event):
-        print(event)
-
-    def track_rep(self, button_state):
+    def track_rep(self, button_state):   # do refactoring !!!
         current_name = self.database.get_current_rep_name()
         if self.database.get_current_rep_state():
             # self.core.turn_off_watcher(current_name)

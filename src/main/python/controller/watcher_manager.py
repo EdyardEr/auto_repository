@@ -14,7 +14,7 @@ def fake_exception_func(name):
         print(f'{name}: fake exception func')
     return func
 
-class Core:
+class WatcherManager:
     def __init__(self, database: AppData, ui: Ui):
         self._database = database
         self.ui = ui
