@@ -1,9 +1,9 @@
 class Delegate(set):
     __slots__ = ('_ignore_args',)
 
-    def __init__(self, ignore_args_args=False):
+    def __init__(self, ignore_args=False):
         super().__init__(self)
-        self._ignore_args = ignore_args_args
+        self._ignore_args = ignore_args
 
     def __call__(self, *args, **kwargs):
         if self._ignore_args:

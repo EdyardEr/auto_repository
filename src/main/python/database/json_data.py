@@ -23,3 +23,4 @@ class JsonData(dict):
     def _restructure(self, data_structure):
         with open(self._path, 'w') as write_file:
             json.dump(data_structure, write_file)
+

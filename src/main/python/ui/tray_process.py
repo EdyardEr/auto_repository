@@ -33,7 +33,7 @@ class TrayProcess:
 
     def _add_menu_sockets(self, menu_points: Dict[str, QAction]):
         for name, point in menu_points.items():
-            delegate = Delegate(ignore_args_args=True)
+            delegate = Delegate(ignore_args=True)
             point.triggered.connect(delegate)
             self.sockets[name] = delegate
 
