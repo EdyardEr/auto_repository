@@ -15,6 +15,9 @@ class Delegate:
     def add(self, subscriber: callable):
         self._subscribers.append(subscriber)
 
+    def clear(self):
+        self._subscribers.clear()
+
     @staticmethod
     def _call_without_args(subscriber: callable):
         subscriber()

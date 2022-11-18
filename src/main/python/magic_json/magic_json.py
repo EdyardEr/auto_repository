@@ -13,16 +13,19 @@ class JsonData(JSONDict):
         self._path = path_to_json
         self._delegate = Delegate(ignore_args=True)
         self._delegate.add(self._set_to_json)
-        self._delegate.add(self._get_from_json)
+        self._delegate.add(self._init_JSON_collection)
         super().__init__(self._get_from_json(), self._delegate)
 
-    def _set_to_json(self):  # start every changes
-        print('set')
+    def _init_JSON_collection(self):
+        super().__init__(self._get_from_json(), self._delegate)
+
+    def _set_to_json(self):
+        print('запись')
         with open(self._path, 'w') as write_file:
             json.dump(self, write_file, indent=4)
 
-    def _get_from_json(self) -> dict:  # start once
-        print('get')
+    def _get_from_json(self) -> dict:
+        print('чтение')
         with open(self._path, 'r') as read_file:
             return json.load(
                 read_file,
@@ -46,12 +49,11 @@ class JsonData(JSONDict):
 
 if __name__ == '__main__':
     path = r'C:\Users\ederm\Desktop\my_projects\repository\data.json'
-    """
-    при записи новый обьектов должны добавляться модифицированные list и dict
-    """
     j = JsonData(path)
-    p = j['dict']['key'] = 6787
-    # p[0] = 'dsf'
-    # print(type(p))
-    # j['new'] = 2345
-    print(p)
+    j = []
+    d = dict()
+    print(j)
+    del j['12'][0]
+    print(j)
+
+

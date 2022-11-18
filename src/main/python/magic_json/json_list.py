@@ -8,7 +8,7 @@ class JSONList(list):
         super().__init__(values)
         self._save_to_json = delegate
 
-    @valid_key_and_value
+    @valid_index_value
     def __setitem__(self, key, value):
         super().__setitem__(key, value)
         self._save_to_json()
@@ -31,6 +31,11 @@ class JSONList(list):
         super().insert(index, value)
         self._save_to_json()
         print('insert')
+
+    def __delitem__(self, key):
+        super().__delitem__(key)
+        self._save_to_json()
+        print('delitem')
 
     def pop(self, __index: int = ...):
         res = super().pop(__index)
@@ -63,21 +68,21 @@ class JSONList(list):
         raise TypeError('You can\'t copy JSONList!')
 
 
-if __name__ == '__main__':
-    def my_print():
-        print('save')
-    my_list = JSONList([1, 2], my_print)
-    # {}.copy()
-
-    # [].copy()
-    # my_list.append({1, 3})
-    # my_list.clear()
-    # my_list.pop(0)
-    # [].count()
-    # my_list.extend({{3: 3}, 3})
-    # my_list.reverse()
-    # my_list.insert()
-    # my_list.index(1)
-    # my_list.remove(4)
-    # [].sort()
-    print(my_list)
+# if __name__ == '__main__':
+#     def my_print():
+#         print('save')
+#     my_list = JSONList([1, 2], my_print)
+#     # {}.copy()
+#
+#     # [].copy()
+#     # my_list.append({1, 3})
+#     # my_list.clear()
+#     # my_list.pop(0)
+#     # [].count()
+#     # my_list.extend({{3: 3}, 3})
+#     # my_list.reverse()
+#     # my_list.insert()
+#     # my_list.index(1)
+#     # my_list.remove(4)
+#     # [].sort()
+#     print(my_list)

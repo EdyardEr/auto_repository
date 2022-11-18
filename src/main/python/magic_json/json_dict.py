@@ -26,6 +26,11 @@ class JSONDict(dict):
         self._save_to_json()
         print(f'update --m:{__m}')
 
+    def __delitem__(self, key):
+        super().__delitem__(key)
+        self._save_to_json()
+        print('delitem')
+
     def pop(self, key):
         super().pop(key)
         self._save_to_json()
@@ -46,10 +51,10 @@ class JSONDict(dict):
         raise TypeError('You can\'t copy JSONDict!')
 
 
-if __name__ == '__main__':
-    def my_print():
-        print('save')
-
-    my_dict = JSONDict({'sdf': []}, my_print)
-    {}.copy()
-    print(my_dict)
+# if __name__ == '__main__':
+#     def my_print():
+#         print('save')
+#
+#     my_dict = JSONDict({'sdf': []}, my_print)
+#     {}.copy()
+#     print(my_dict)
