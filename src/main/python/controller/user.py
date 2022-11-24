@@ -1,6 +1,6 @@
 from typing import Optional, Union
 
-from database.db import AppData
+from database.application_data import AppData
 from ui.ui import Ui
 from .verifier import Verifier
 

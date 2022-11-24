@@ -1,5 +1,5 @@
 from core.watcher import Watcher
-from database.db import AppData
+from database.application_data import AppData
 from typing import Dict
 from ui.ui import Ui
 

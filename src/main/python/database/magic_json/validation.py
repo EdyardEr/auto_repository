@@ -43,6 +43,4 @@ def check_array(array):
     return [check_value(cel) for cel in array]
 
 def check_items(items: dict):
-    print(items)
     return {check_key(key): check_value(value) for key, value in items.items()}
-

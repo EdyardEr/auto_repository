@@ -1,16 +1,14 @@
 import json
 
-from json_list import JSONList
-from json_dict import JSONDict
-from json_decoder import Decoder
-from json_delegate import Delegate
+from .json_list import JSONList
+from .json_dict import JSONDict
+from .decoder import Decoder
+from .delegate import Delegate
 
 
-class JsonData(JSONDict):
-    __slots__ = ('_path', '_delegate')
-
-    def __init__(self, path_to_json: str):
-        self._path = path_to_json
+class BaseCollection:
+    def __init__(self, file_path: str):
+        self._path = file_path
         self._delegate = Delegate(ignore_args=True)
         self._delegate.add(self._set_to_json)
         self._delegate.add(self._init_JSON_collection)
@@ -20,12 +18,10 @@ class JsonData(JSONDict):
         super().__init__(self._get_from_json(), self._delegate)
 
     def _set_to_json(self):
-        print('запись')
         with open(self._path, 'w') as write_file:
             json.dump(self, write_file, indent=4)
 
     def _get_from_json(self) -> dict:
-        print('чтение')
         with open(self._path, 'r') as read_file:
             return json.load(
                 read_file,
@@ -47,13 +43,11 @@ class JsonData(JSONDict):
         return func
 
 
-if __name__ == '__main__':
-    path = r'C:\Users\ederm\Desktop\my_projects\repository\data.json'
-    j = JsonData(path)
-    j = []
-    d = dict()
-    print(j)
-    del j['12'][0]
-    print(j)
+class DictBaseCollection(BaseCollection, JSONDict):
+    pass
+
+class ListBaseCollection(BaseCollection, JSONList):
+    pass
+
 
 

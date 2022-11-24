@@ -2,7 +2,7 @@ from .watcher_manager import WatcherManager
 from .user import User
 from .verifier import Verifier
 from ui.ui import Ui
-from database.db import AppData
+from database.application_data import AppData
 
 class Controller:
     def __init__(self, ui: Ui, database: AppData):

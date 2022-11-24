@@ -1,4 +1,4 @@
-from database.db import AppData
+from database.application_data import AppData
 from ui.ui import Ui
 
 
