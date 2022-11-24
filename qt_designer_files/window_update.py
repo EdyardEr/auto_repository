@@ -32,10 +32,8 @@ def update_qt_file():
     """
     it's utility update source_window.py from qt designer file
     """
-    # source_path = r'/qt_designer_files/main_win.ui'
     source_path = r'C:\Users\ederm\Desktop\my_projects\repository\qt_designer_files\main_win.ui'
-    # qt_designer_path = r'/ui/source.py'
-    qt_designer_path = r'C:\Users\ederm\Desktop\my_projects\repository\src\main\python\ui\source.py'
+    qt_designer_path = r'C:\Users\ederm\Desktop\my_projects\repository\src\main\python\ui\window_source.py'
     command = ['pyuic5', '-x', source_path, '-o', qt_designer_path]
     console = Console()
     console.execute(command)

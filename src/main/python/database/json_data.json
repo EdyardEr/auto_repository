@@ -1,23 +1,13 @@
 {
     "rep_dirs": [
         [
-            "one",
-            "fake_path",
-            false
-        ],
-        [
             "two",
             "fake_path",
             false
         ],
         [
-            "four",
-            "C:/Users/ederm/.designer",
-            false
-        ],
-        [
-            "threee",
-            "C:/Users/ederm/OneDrive",
+            "work",
+            "C:/Users/ederm/Desktop",
             false
         ]
     ],

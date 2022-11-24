@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMainWindow, QSystemTrayIcon
+from PyQt5.QtWidgets import QMainWindow
 
 
 class QExtensionWindow(QMainWindow):

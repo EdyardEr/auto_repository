@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>529</width>
-    <height>339</height>
+    <width>619</width>
+    <height>420</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -68,11 +68,30 @@
             </property>
             <property name="minimumSize">
              <size>
-              <width>200</width>
+              <width>310</width>
               <height>0</height>
              </size>
             </property>
+            <property name="maximumSize">
+             <size>
+              <width>310</width>
+              <height>16777215</height>
+             </size>
+            </property>
            </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
           </item>
           <item>
            <widget class="QPushButton" name="create_rep">
@@ -97,6 +116,56 @@
             </property>
             <property name="text">
              <string>Delete</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="track_indicator">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="track_dir">
+            <property name="text">
+             <string>Track off</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="track_settings">
+            <property name="text">
+             <string>Settings</string>
             </property>
            </widget>
           </item>
@@ -136,32 +205,6 @@
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QPushButton" name="track_indicator">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="track_dir">
-            <property name="text">
-             <string>Track</string>
-            </property>
-           </widget>
-          </item>
          </layout>
         </item>
         <item>
@@ -170,7 +213,7 @@
            <number>0</number>
           </property>
           <item>
-           <widget class="QListWidget" name="listWidget"/>
+           <widget class="QListWidget" name="events_list"/>
           </item>
          </layout>
         </item>
@@ -180,6 +223,18 @@
        <attribute name="title">
         <string>Roollback</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QPushButton" name="choose_file">
+          <property name="text">
+           <string>Choose File</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QListWidget" name="file_conditions_list"/>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>

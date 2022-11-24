@@ -11,70 +11,64 @@ class Controller:
 
         self.verifier = Verifier(self.ui, self.database)
         self.user = User(self.ui, self.database, self.verifier)
-        self.core = WatcherManager(self.database, self.ui)
-        self.start_application()
+        self.watchers = WatcherManager(self.database, self.ui)
+        self.connect_ui()
 
-    def start_application(self):
-        self.create_ui_links()
-        self.fill_ui()
+    def connect_ui(self):
+        self.__create_ui_links()
+        self.__fill_ui()
 
-    def create_ui_links(self):
+    def __create_ui_links(self):
         self.ui.sockets.create_rep_button.add(self.create_new_repository)
         self.ui.sockets.del_rep_button.add(self.del_repository)
-        self.ui.sockets.change_rep_combo_box.add(self.change_rep)
+        self.ui.sockets.change_rep_combo_box.add(self.switch_combo_box)
         self.ui.sockets.track_dir.add(self.track_rep)
 
-    def track_rep(self, button_state):   # do refactoring !!!
+    def __fill_ui(self):
+        current_index = self.database.get_current_rep_index()
+        self.ui.filling.fill_rep_list(self.database.get_rep_names())
+        # self.update_ui_tracker_tab()
+        self.ui.filling.choose_rep(current_index)
+
+    def track_rep(self):
         current_name = self.database.get_current_rep_name()
-        if self.database.get_current_rep_state():
-            # self.core.turn_off_watcher(current_name)
-            self.database.set_rep_track_state(current_name, False)
-            self.ui.filling.track_indicate_light(False)
+        if self.database.get_current_rep_track_state():
+            self.watchers.turn_off_watcher(current_name)
         else:
-            # self.core.turn_on_watcher(current_name)
-            self.database.set_rep_track_state(current_name, True)
-            self.ui.filling.track_indicate_light(True)
+            self.watchers.turn_on_watcher(current_name)
 
-    def fill_ui(self):
-        """
-        Here we filling ui widgets while starting.
-        """
-        self.fill_rep_list()
-
-    def change_rep(self, line_ind):
+    def switch_combo_box(self, line_ind):
         self.database.set_current_rep_index(line_ind)
         if line_ind != -1:
-            text = self.database.get_current_rep_path()
-            track_state = self.database.get_current_rep_state()
+            self.update_ui_tracker_tab()
         else:
-            text = ''
-            track_state = False
-        self.ui.filling.fill_rep_path(text)
-        self.ui.filling.track_indicate_light(track_state)
+            self.clear_ui_tracker_tab()
 
-    def create_new_repository(self, *button_state):
+    def create_new_repository(self):
         new_path = self.user.choose_rep_path()
         if new_path is None:
             return
         new_name = self.user.write_rep_name()
         if new_name is None:
             return
-        self.save_and_actual_rep(new_name, new_path)
+        self.database.set_new_rep(new_name, new_path, False)
+        self.watchers.add_new_watcher(new_name, new_path)
+        self.ui.filling.add_repository(new_name)
+        self.ui.filling.choose_rep(self.database.get_reps_count() - 1)
 
-    def del_repository(self, *button_state):
+    def del_repository(self):
         name = self.user.del_repository()
         if name is None:
             return
         self.database.del_rep(name)
-        self.ui.window.rep_list.setCurrentIndex(-1)
-        self.fill_rep_list()
+        self.ui.filling.reset_rep_list(self.database.get_rep_names())
 
-    def save_and_actual_rep(self, new_name, new_path):
-        self.database.set_new_rep(new_name, new_path, False)
-        ind = self.database.get_reps_count() - 1
-        self.ui.filling.fill_tracker_tab(self.database.get_rep_names(), ind, False)
+    def update_ui_tracker_tab(self):
+        self.ui.filling.fill_events_list(self.watchers.get_current_events_list())
+        self.ui.filling.fill_rep_path(self.database.get_current_rep_path())
+        self.ui.filling.switch_track_indicator(self.database.get_current_rep_track_state())
 
-    def fill_rep_list(self):
-        ind = self.database.get_current_rep_index()
-        self.ui.filling.fill_tracker_tab(self.database.get_rep_names(), ind, self.database.get_current_rep_state())
-
+    def clear_ui_tracker_tab(self):
+        self.ui.filling.clear_events_list()
+        self.ui.filling.fill_rep_path('')
+        self.ui.filling.switch_track_indicator(False)

@@ -4,7 +4,7 @@ from typing import Tuple
 from PyQt5.QtWidgets import QFileDialog, QMessageBox, QInputDialog
 
 from .q_extension_window import QExtensionWindow
-from .source import Ui_MainWindow
+from .window_source import Ui_MainWindow
 from ui.validators import validator
 
 
@@ -39,6 +39,9 @@ class Window(Ui_MainWindow):
 
     def show_validator_except_mess(self, message: str):
         QMessageBox.warning(self.base_window, 'Validator except', message)
+
+    def show_warning_mess(self, message: str, title: str = 'Warning!'):
+        QMessageBox.warning(self.base_window, title, message)
 
     def text_user_request(self, message: str) -> Tuple[str, bool]:
         return QInputDialog.getText(self.base_window, 'Request', message)

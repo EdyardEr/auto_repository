@@ -37,7 +37,7 @@ class AppData:
     def get_current_rep_name(self) -> str:
         return self.get_current_rep()[0]
 
-    def get_current_rep_state(self) -> bool:
+    def get_current_rep_track_state(self) -> bool:
         return self.get_current_rep()[2]
 
     def get_current_rep_path(self) -> str:
