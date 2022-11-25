@@ -66,9 +66,9 @@ class Controller:
     def update_ui_tracker_tab(self):
         self.ui.filling.fill_events_list(self.watchers.get_current_events_list())
         self.ui.filling.fill_rep_path(self.database.get_current_rep_path())
-        self.ui.filling.switch_track_indicator(self.database.get_current_rep_track_state())
+        self.ui.filling.switch_track_state(self.database.get_current_rep_track_state())
 
     def clear_ui_tracker_tab(self):
         self.ui.filling.clear_events_list()
         self.ui.filling.fill_rep_path('')
-        self.ui.filling.switch_track_indicator(False)
+        self.ui.filling.switch_track_state(False)

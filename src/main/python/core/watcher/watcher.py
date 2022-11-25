@@ -3,7 +3,7 @@ from watchdog.events import RegexMatchingEventHandler
 
 from typing import Optional
 
-from .path_checker import PathChecker
+from core.watcher.path_checker import PathChecker
 from delegate import Delegate
 
 

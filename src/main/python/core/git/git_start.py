@@ -1,4 +1,4 @@
-from git import Git
+from core.git import Git
 
 if __name__ == '__main__':
     """c02fd2d dacd81a c99285e"""

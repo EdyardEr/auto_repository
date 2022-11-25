@@ -1,4 +1,4 @@
-from core.watcher import Watcher
+from core.watcher.watcher import Watcher
 from database.application_data import AppData
 from typing import Dict
 from ui.ui import Ui
@@ -47,12 +47,12 @@ class WatcherManager:
 
     def turn_on_watcher(self, name):
         self._database.set_rep_track_state(name, True)
-        self.ui.filling.switch_track_indicator(True)
+        self.ui.filling.switch_track_state(True)
         self.__watchers[name].start()
 
     def turn_off_watcher(self, name):
         self._database.set_rep_track_state(name, False)
-        self.ui.filling.switch_track_indicator(False)
+        self.ui.filling.switch_track_state(False)
         self.__watchers[name].stop()
 
     def __change_watcher_state(self, name):

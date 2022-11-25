@@ -1,15 +1,40 @@
 {
     "rep_dirs": [
         [
+            "one",
+            "fake_path",
+            false
+        ],
+        [
             "two",
             "fake_path",
             false
         ],
         [
-            "work",
+            "four",
+            "C:/Users/ederm/.designer",
+            false
+        ],
+        [
+            "three",
+            "C:/Users/ederm/.idlerc",
+            false
+        ],
+        [
+            "new_rep",
+            "C:/Users/ederm/Desktop/\u041d\u043e\u0432\u0430\u044f \u043f\u0430\u043f\u043a\u0430",
+            false
+        ],
+        [
+            "asdf",
+            "C:/Users/ederm/.oracle_jre_usage",
+            false
+        ],
+        [
+            "asdfh",
             "C:/Users/ederm/Desktop",
             false
         ]
     ],
-    "current_rep_index": 1
+    "current_rep_index": 6
 }

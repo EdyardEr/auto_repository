@@ -23,11 +23,21 @@ class Filling:
     def choose_rep(self, ind: int):
         self.window.rep_list.setCurrentIndex(ind)
 
-    def switch_track_indicator(self, switch: bool):
+    def switch_track_state(self, switch: bool):
+        self.switch_track_light(switch)
+        self.switch_button_track_name(switch)
+
+    def switch_track_light(self, switch: bool):
         if switch:
             self.window.track_indicator.setStyleSheet('background: rgb(51,255,51);')
         else:
             self.window.track_indicator.setStyleSheet('')
+
+    def switch_button_track_name(self, switch: bool):
+        if switch:
+            self.window.track_dir.setText('Track Off')
+        else:
+            self.window.track_dir.setText('Track On')
 
     def add_event_in_list(self, event: str):
         self.window.events_list.addItem(event)

@@ -1,31 +1,7 @@
-import subprocess
-import copy
-
-class Console:
-    def __init__(self):
-        self._output = None
-        self._input = None
-        self._error = None
-
-    def execute(self, command: str):
-        pipe = subprocess.PIPE
-        self.save_state(command, subprocess.Popen(command, stdout=pipe, stderr=pipe, encoding='utf-8'))
-        # if not self._error:
-        return [line.strip() for line in self._output]
-
-    def save_state(self, command, answer):
-        self._input = command
-        if self.is_error(answer):
-            self._error = True
-            self._output = list(answer.stderr)
-        else:
-            self._error = False
-            self._output = list(answer.stdout)
-
-    @staticmethod
-    def is_error(request):
-        request.stderr = list(request.stderr)
-        return bool(len(request.stderr))
+if __name__ == '__main__':
+    from core.git.console import Console
+else:
+    from .console import Console
 
 
 class Git:
@@ -55,6 +31,8 @@ class Git:
     def log_name(self):
         print(self.cmd.execute('git log --name-only --pretty=format:""'))
 
+    def test(self):
+        print(self.cmd.execute('git commit -d'))
     # def to_commite(self, commit_id):
     #     print(self.cmd.execute(f'git checkout {commit_id}'))
 
@@ -62,3 +40,4 @@ class Git:
 if __name__ == '__main__':
     git = Git()
     # git.status()
+    git.test()
