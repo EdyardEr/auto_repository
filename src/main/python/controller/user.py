@@ -1,5 +1,7 @@
 from typing import Optional, Union
 
+from PyQt5 import QtWidgets
+
 from database.application_data import AppData
 from ui.ui import Ui
 from .verifier import Verifier
@@ -51,3 +53,9 @@ class User:
             return True
         else:
             return False
+
+    def settings_repository(self):
+        if self.ui.track_settings.dialog.exec():
+            return {'tracked': [], 'ignored': []}
+        else:
+            return None

@@ -1,9 +1,9 @@
-from typing import Optional
-
+from .track_settings import TrackSettings
 from .window import Window
 
 class Filling:
     def __init__(self, window: Window):
+    # def __init__(self, window: Window, track_settings: TrackSettings):
         self.window = window
 
     def fill_rep_path(self, text: str):

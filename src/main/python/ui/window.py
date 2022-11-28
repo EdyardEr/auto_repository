@@ -4,7 +4,7 @@ from typing import Tuple
 from PyQt5.QtWidgets import QFileDialog, QMessageBox, QInputDialog
 
 from .q_extension_window import QExtensionWindow
-from .window_source import Ui_MainWindow
+from ui.source.window import Ui_MainWindow
 from ui.validators import validator
 
 
@@ -45,4 +45,7 @@ class Window(Ui_MainWindow):
 
     def text_user_request(self, message: str) -> Tuple[str, bool]:
         return QInputDialog.getText(self.base_window, 'Request', message)
+
+    def show_invalid_repository(self, name=''):
+        self.show_validator_except_mess(f'{name} repository is Invalid!!!')
 

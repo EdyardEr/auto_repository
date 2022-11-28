@@ -18,11 +18,13 @@ class WatcherManager:
 
     def __create_events_lists(self):
         self.__events_lists = {name: list() for name in self.__watchers.keys()}
-        # self._events_lists = dict.fromkeys(self._watchers, list())
 
     def add_new_watcher(self, name: str, path: str):
         self.__watchers[name] = Watcher(path)
         self.__events_lists[name] = list()
+
+    def delete_watcher(self, name: str):
+        del self.__watchers[name]
 
     def __create_watchers(self):
         self.__watchers.update({name: Watcher(path) for name, path, state in self._database.get_repositories()})

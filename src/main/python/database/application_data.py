@@ -17,10 +17,14 @@ data_structure = Dict[
 main_db_path = r'C:\Users\ederm\Desktop\my_projects\repository\src\main\python\database\json_data.json'
 
 class AppData:
-    __slots__ = ('__json_data',)
+    __slots__ = ('__json_data', '__invalid_repositories')
 
     def __init__(self):
         self.__json_data: data_structure = JSON.connection(main_db_path)
+        self.__invalid_repositories = list()
+
+    def get_invalid_rep_list(self) -> List[str]:
+        return self.__invalid_repositories
 
     def get_rep_names(self) -> List[str]:
         return [name for name, rep_path, track_state in self.get_repositories()]
@@ -50,6 +54,9 @@ class AppData:
         for current_name, path, state in self.__json_data['rep_dirs']:
             if current_name == name:
                 return state
+
+    def set_invalid_rep(self, name: str):
+        self.__invalid_repositories.append(name)
 
     def set_rep_track_state(self, name: str, state: bool):
         for ind, rep in enumerate(self.__json_data['rep_dirs']):

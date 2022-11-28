@@ -16,6 +16,7 @@ class JSON:
 
     @classmethod
     def create(cls, file_path: str, collection_type: type):
+        cls.__create(file_path, collection_type)
         return cls.__collection_types[collection_type](file_path)  # как нормально зааннотировать?
 
     @staticmethod

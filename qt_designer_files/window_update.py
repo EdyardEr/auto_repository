@@ -1,42 +1,18 @@
-from typing import List, Union
-import subprocess
-
-
-class Console:
-    def __init__(self):
-        self._output = None
-        self._input = None
-        self._error = None
-
-    def execute(self, command: Union[List[str], str]):
-        pipe = subprocess.PIPE
-        self.save_state(command, subprocess.Popen(command, stdout=pipe, stderr=pipe, encoding='utf-8'))
-        return [line.strip() for line in self._output]
-
-    def save_state(self, command, answer):
-        self._input = command
-        if self.is_error(answer):
-            self._error = True
-            self._output = list(answer.stderr)
-        else:
-            self._error = False
-            self._output = list(answer.stdout)
-
-    @staticmethod
-    def is_error(request):
-        request.stderr = list(request.stderr)
-        return bool(len(request.stderr))
-
+from core.git.console import Console
 
 def update_qt_file():
     """
     it's utility update source_window.py from qt designer file
     """
-    source_path = r'C:\Users\ederm\Desktop\my_projects\repository\qt_designer_files\main_win.ui'
-    qt_designer_path = r'C:\Users\ederm\Desktop\my_projects\repository\src\main\python\ui\window_source.py'
-    command = ['pyuic5', '-x', source_path, '-o', qt_designer_path]
+    source_dir_path = r'C:\Users\ederm\Desktop\my_projects\repository\qt_designer_files\\'
+    destination_dir = r'C:\Users\ederm\Desktop\my_projects\repository\src\main\python\ui\source\\'
+    names = [['main_win.ui', 'window_source.py'], ['track_settings.ui', 'track_settings.py']]
+
     console = Console()
-    console.execute(command)
+    for source_file_name, destination_name in names:
+        source_path = source_dir_path + source_file_name
+        destination_path = destination_dir + destination_name
+        console.execute(['pyuic5', '-x', source_path, '-o', destination_path])
 
 
 if __name__ == '__main__':

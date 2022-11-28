@@ -19,7 +19,7 @@ class BaseCollection:
 
     def _set_to_json(self):
         with open(self._path, 'w') as write_file:
-            json.dump(self, write_file, indent=4)
+            json.dump(self, write_file, indent=4, ensure_ascii=False)
 
     def _get_from_json(self) -> dict:
         with open(self._path, 'r') as read_file:

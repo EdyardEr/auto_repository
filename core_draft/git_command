@@ -21,3 +21,6 @@ git checkout -B temporary #новая ветка на основе данной
 
 pyuic5 -x untitled.ui -o calc.py
 
+
+rmdir /s .git - удалить папку гита(потом надо подтвердить)
+rm -rf .git* - удалить gitignore gitmodules
