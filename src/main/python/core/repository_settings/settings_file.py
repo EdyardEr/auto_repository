@@ -30,6 +30,10 @@ class Settings:
     def set_to_ignored(self, line: str):
         self.__json_data['ignored'].append(line)
 
+    def set_new_settings(self, ignore_list: dict):
+        self.__json_data['ignored'] = ignore_list['ignored']
+        self.__json_data['tracked'] = ignore_list['tracked']
+
     def del_tracked(self, line: str):
         self.__json_data['tracked'].remove(line)
 
@@ -37,10 +41,14 @@ class Settings:
         self.__json_data['ignored'].remove(line)
 
     def get_tracked_list(self):
-        return self.__json_data['tracked']
+        return list(self.__json_data['tracked'])
 
     def get_ignored_list(self):
-        return self.__json_data['ignored']
+        return list(self.__json_data['ignored'])
+
+    def get_all(self):
+        # return {'tracked': self.get_tracked_list(), 'ignored': self.get_ignored_list()}
+        return self.__json_data
 
 
 if __name__ == '__main__':

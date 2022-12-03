@@ -15,10 +15,7 @@ class SettingsManager:
         self.update_settings(name, settings)
 
     def update_settings(self, name: str, settings: Dict[str, list]):
-        for line in settings['ignored']:
-            self.__git_settings_jsons[name].set_to_ignored(line)
-        for line in settings['tracked']:
-            self.__git_settings_jsons[name].set_to_ignored(line)
+        self.__git_settings_jsons[name].set_new_settings(settings)
 
     def delete_rep(self, name: str):
         if name in self.__git_settings_jsons:
@@ -28,3 +25,12 @@ class SettingsManager:
         for name, path, state in self._database.get_repositories():
             if name not in self._database.get_invalid_rep_list():
                 self.__git_settings_jsons[name] = Settings(path)
+
+    def get_settings(self, rep_name: str):
+        ignored = self.__git_settings_jsons[rep_name].get_ignored_list()
+        tracked = self.__git_settings_jsons[rep_name].get_tracked_list()
+        return {'ignored': ignored, 'tracked': tracked}
+
+    def get_all_settings(self):
+        return {key: settings.get_all() for key, settings in self.__git_settings_jsons.items()}
+

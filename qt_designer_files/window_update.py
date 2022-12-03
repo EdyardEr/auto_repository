@@ -6,7 +6,7 @@ def update_qt_file():
     """
     source_dir_path = r'C:\Users\ederm\Desktop\my_projects\repository\qt_designer_files\\'
     destination_dir = r'C:\Users\ederm\Desktop\my_projects\repository\src\main\python\ui\source\\'
-    names = [['main_win.ui', 'window_source.py'], ['track_settings.ui', 'track_settings.py']]
+    names = [['main_win.ui', 'window.py'], ['track_settings.ui', 'track_settings.py']]
 
     console = Console()
     for source_file_name, destination_name in names:

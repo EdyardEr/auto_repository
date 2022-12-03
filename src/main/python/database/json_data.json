@@ -1,9 +1,9 @@
 {
     "rep_dirs": [
         [
-            "вап",
+            "new_rep",
             "C:/Users/ederm/Desktop/test_dir",
-            false
+            true
         ]
     ],
     "current_rep_index": 0

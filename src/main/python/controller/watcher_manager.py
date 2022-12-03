@@ -1,3 +1,4 @@
+from core.repository_settings.settings_file import Settings
 from core.watcher.watcher import Watcher
 from database.application_data import AppData
 from typing import Dict
@@ -5,13 +6,13 @@ from ui.ui import Ui
 
 
 class WatcherManager:
-    def __init__(self, database: AppData, ui: Ui):
+    def __init__(self, database: AppData, ui: Ui, settings: dict):
         self._database = database
         self.ui = ui
         self.__watchers: Dict[str, Watcher] = {}
         self.__events_lists: Dict[str, list] = {}
 
-        self.__create_watchers()
+        self.__create_watchers(settings)
         self.__create_events_lists()
         self.__define_watchers_sockets()
         self.__start_watchers()
@@ -19,20 +20,25 @@ class WatcherManager:
     def __create_events_lists(self):
         self.__events_lists = {name: list() for name in self.__watchers.keys()}
 
-    def add_new_watcher(self, name: str, path: str):
-        self.__watchers[name] = Watcher(path)
+    def add_new_watcher(self, name: str, path: str, settings: dict):
+        self.__watchers[name] = Watcher(path, settings)
         self.__events_lists[name] = list()
+        self.__define_watcher_sockets(name, self.__watchers[name])
+
+    def __define_watcher_sockets(self, name: str, watcher):
+        watcher.sockets['events'].add(self.__add_new_event(name))
+        watcher.sockets['path_exception'].add(self.__change_watcher_state(name))
 
     def delete_watcher(self, name: str):
         del self.__watchers[name]
 
-    def __create_watchers(self):
-        self.__watchers.update({name: Watcher(path) for name, path, state in self._database.get_repositories()})
+    def __create_watchers(self, settings: dict):
+        watchers = {name: Watcher(path, settings[name]) for name, path, state in self._database.get_repositories()}
+        self.__watchers.update(watchers)
 
     def __define_watchers_sockets(self):
         for name, watcher in self.__watchers.items():
-            watcher.sockets['events'].add(self.__add_new_event(name))
-            watcher.sockets['path_exception'].add(self.__change_watcher_state(name))
+            self.__define_watcher_sockets(name, watcher)
 
     def exception_sockets_add(self, function: callable):
         for name, watcher in self.__watchers.items():

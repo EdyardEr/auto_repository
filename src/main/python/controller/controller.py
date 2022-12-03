@@ -16,9 +16,9 @@ class Controller:
 
         self.verifier = Verifier(self.ui, self.database)
         self.user = User(self.ui, self.database, self.verifier)
-        self.watchers = WatcherManager(self.database, self.ui)
-        self.git_reps = GitManager(self.database, self.ui)
         self.rep_settings = SettingsManager(self.database)
+        self.watchers = WatcherManager(self.database, self.ui, self.rep_settings.get_all_settings())
+        self.git_reps = GitManager(self.database, self.ui)
         self.connect_ui()
 
     def connect_ui(self):
@@ -44,14 +44,22 @@ class Controller:
         return is_correct
 
     def track_settings(self):
+        name = self.ui.window.rep_list.currentText()
+        if not name:
+            self.verifier.valid_error('Choose repository!')
+            return None
         if self.current_rep_is_valid():
-            self.track_settings = TrackSettings(self.ui.window.base_window, ['1', '2'], ['3', '4'])
-            # settings_list = SettingsList()
-            if self.track_settings.dialog.exec():
-                settings = {'key': list()}
-                self.rep_settings.update_settings(self.database.get_current_rep_name(), settings)
+            rep_name = self.database.get_current_rep_name()
+            track_settings = TrackSettings(self.ui.window.base_window, self.rep_settings.get_settings(rep_name))
+            result = track_settings.exec()
+            if result:
+                self.rep_settings.update_settings(rep_name, track_settings.result())
 
     def track_rep(self):
+        name = self.ui.window.rep_list.currentText()
+        if not name:
+            self.verifier.valid_error('Choose repository!')
+            return None
         if self.current_rep_is_valid():
             current_name = self.database.get_current_rep_name()
             if self.database.get_current_rep_track_state():
@@ -73,13 +81,17 @@ class Controller:
         new_name = self.user.write_rep_name()
         if new_name is None:
             return
-        # settings = self.user.settings_repository()
-        # if settings is None:
-        #     return
+
+        track_settings = TrackSettings(self.ui.window.base_window)
+        if track_settings.exec():
+            settings = track_settings.result()
+        else:
+            return
+
         self.database.set_new_rep(new_name, new_path, False)
-        self.watchers.add_new_watcher(new_name, new_path)
+        self.watchers.add_new_watcher(new_name, new_path, settings)
         self.git_reps.add_rep(new_name, new_path)
-        # self.rep_settings.add_rep(new_name, new_path, settings)
+        self.rep_settings.add_rep(new_name, new_path, settings)
         self.ui.filling.add_repository(new_name)
         self.ui.filling.choose_rep(self.database.get_reps_count() - 1)
 

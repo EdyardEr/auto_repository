@@ -1,20 +1,22 @@
-from typing import Optional
+from typing import Tuple, Optional
 
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QInputDialog, QDialog, QListWidget, QWidget
 
 from delegate import Delegate
 from ui.source.track_settings import Ui_Dialog
+from ui.validators import validator
 
 
-class TrackSettings(Ui_Dialog):
-    def __init__(self, parent: QMainWindow, tracked_list=None, ignored_list=None):
-        if ignored_list is None:
-            ignored_list = []
-        if tracked_list is None:
-            tracked_list = []
-        self.dialog = QtWidgets.QDialog(parent)
-        super().setupUi(self.dialog)
+class TrackSettings(QDialog):
+    def __init__(self, parent: QWidget, settings: Optional[dict] = None):
+        super().__init__(parent)
+        self.basis = Ui_Dialog()
+        self.basis.setupUi(self)
+
+        if settings is not None:
+            self.basis.tracked_file_list.addItems(settings['tracked'])
+            self.basis.ignore_file_list.addItems(settings['ignored'])
+
         self.sockets = {
             'add_to_ignored': Delegate(ignore_args=True),
             'add_to_tracked': Delegate(ignore_args=True),
@@ -22,66 +24,61 @@ class TrackSettings(Ui_Dialog):
             'remove_from_tracked': Delegate(ignore_args=True),
         }
         self.__define_sockets()
-        self.__ignored_list = ignored_list
-        self.__tracked_list = tracked_list
-        self.__fill_fields()
+        self.__connect_internal_sockets()
 
-    def show(self):
-        self.dialog.show()
+    def result(self) -> dict:
+        settings = {
+            'ignored': self.__get_items_form_list(self.basis.ignore_file_list),
+            'tracked': self.__get_items_form_list(self.basis.tracked_file_list),
+        }
+        return settings
 
-    def __fill_fields(self):
-        self.tracked_file_list.addItems(self.__tracked_list)
-        self.ignore_file_list.addItems(self.__ignored_list)
+    @staticmethod
+    def __get_items_form_list(list_widget: QListWidget):
+        items = []
+        for index in range(list_widget.count()):
+            items.append(list_widget.item(index).text())
+        return items
 
     def __add_line_in_tracked(self, line: str):
-        self.tracked_file_list.addItem(line)
+        self.basis.tracked_file_list.addItem(line)
+
+    def __add_line_in_ignored(self, line: str):
+        self.basis.ignore_file_list.addItem(line)
 
     def __remove_line_from_tracked(self):
-        self.tracked_file_list.takeItem(self.tracked_file_list.currentRow())
+        self.basis.tracked_file_list.takeItem(self.basis.tracked_file_list.currentRow())
 
     def __remove_line_from_ignored(self):
-        self.ignore_file_list.takeItem(self.ignore_file_list.currentRow())
+        self.basis.ignore_file_list.takeItem(self.basis.ignore_file_list.currentRow())
+
+    def __add_line_to_tracked(self):
+        line, is_actual = self.__request_line()
+        if is_actual:
+            self.__add_line_in_tracked(line)
+
+    def __add_line_to_ignored(self):
+        line, is_actual = self.__request_line()
+        if is_actual:
+            self.__add_line_in_ignored(line)
+
+    # @validator.new_rep_name ## добавить валидацию! или нет)
+    def __request_line(self) -> Tuple[str, bool]:
+        text = 'Enter name, inner path or extension:'
+        line, is_actual = QInputDialog.getText(self, 'New line', text)
+        return line, is_actual
 
     def __define_sockets(self):
-        self.add_to_ignored.clicked.connect(self.sockets['add_to_ignored'])
-        self.remove_from_tracked.clicked.connect(self.sockets['remove_from_tracked'])
-        self.add_to_tracked.clicked.connect(self.sockets['add_to_tracked'])
-        self.remove_from_ignored.clicked.connect(self.sockets['remove_from_ignored'])
+        self.basis.add_to_ignored.clicked.connect(self.sockets['add_to_ignored'])
+        self.basis.remove_from_tracked.clicked.connect(self.sockets['remove_from_tracked'])
+        self.basis.add_to_tracked.clicked.connect(self.sockets['add_to_tracked'])
+        self.basis.remove_from_ignored.clicked.connect(self.sockets['remove_from_ignored'])
 
+    def __connect_internal_sockets(self):
         self.sockets['remove_from_tracked'].add(self.__remove_line_from_tracked)
         self.sockets['remove_from_ignored'].add(self.__remove_line_from_ignored)
+        self.sockets['add_to_tracked'].add(self.__add_line_to_tracked)
+        self.sockets['add_to_ignored'].add(self.__add_line_to_ignored)
 
-        """
-        теперь надо чтобы добавляла
-        """
-    #
-    # def show(self):
-    #     self.base_window.show()
-    #
-    # def __expand(self, *args, **kwargs):
-    #     """
-    #     Here i can extension my window, for example add widgets.
-    #     """
-    #
-    #     # items = map(str, range(50))  # event list filling
-    #     # for item in items:
-    #     #     self.listWidget.addItem(QListWidgetItem(item))
-    #
-    # def request_dir_path(self) -> str:
-    #     start_path = str(pathlib.Path.home())
-    #     path = QFileDialog.getExistingDirectory(self.base_window, 'Directory for track', start_path)
-    #     return path
-    #
-    # @validator.new_rep_name
-    # def request_repository_name(self) -> Tuple[str, bool]:
-    #     name, is_actual = QInputDialog.getText(self.base_window, 'Naming', 'Enter a name for the repository:')
-    #     return name, is_actual
-    #
     # def show_validator_except_mess(self, message: str):
     #     QMessageBox.warning(self.base_window, 'Validator except', message)
-    #
-    # def show_warning_mess(self, message: str, title: str = 'Warning!'):
-    #     QMessageBox.warning(self.base_window, title, message)
-    #
-    # def text_user_request(self, message: str) -> Tuple[str, bool]:
-    #     return QInputDialog.getText(self.base_window, 'Request', message)
